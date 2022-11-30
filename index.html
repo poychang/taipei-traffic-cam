@@ -40,9 +40,9 @@
                 $('#time').text(formattedString);
             }
             function recaptureVideo() {
-                console.log('recapture video...');
                 $('.video_obj').each(function () {
                     const video_obj_path = $(this).attr('data-src');
+                    console.log(`recapture video (${video_obj_path})...`);
                     if (video_obj_path.indexOf('?') >= 0) {
                         $(this).attr('src', video_obj_path + '&t=' + Math.random());
                     } else {
@@ -51,10 +51,10 @@
                 });
             }
             function errorReload() {
-                console.log('error reload...');
                 $('.video_obj').each(function () {
                     const video_obj_path = $(this).attr('data-src');
                     if ($(this).attr('src').indexOf('error') >= 0) {
+                        console.log(`error reload (${video_obj_path})...`);
                         if (video_obj_path.indexOf('?') >= 0) {
                             $(this).attr('src', video_obj_path + '&t=' + Math.random());
                         } else {
