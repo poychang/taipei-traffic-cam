@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <base href="/taipei-traffic-cam/">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div>
+            <img
+                data-src="https://cctv.bote.gov.taipei:8501/MJPEG/389"
+                src="https://cctv.bote.gov.taipei:8501/MJPEG/389"
+                onerror="this.src='./error.png';"
+                class="video_obj"
+                alt="traffic video"
+                style="width: 100%; max-width: 800px; max-height: 600px"
+            />
+        </div>
+
+        <script
+            src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+            integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            setInterval(function () {
+                $('.video_obj').each(function () {
+                    var video_obj_path = $(this).attr('data-src');
+                    if (video_obj_path.indexOf('?') >= 0) {
+                        $(this).attr('src', video_obj_path + '&t=' + Math.random());
+                    } else {
+                        $(this).attr('src', video_obj_path + '?t=' + Math.random());
+                    }
+                });
+                console.log('checking...');
+            }, 8000);
+        </script>
+    </body>
+</html>
