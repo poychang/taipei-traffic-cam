@@ -54,7 +54,7 @@
                 console.log('error reload...');
                 $('.video_obj').each(function () {
                     const video_obj_path = $(this).attr('data-src');
-                    if (video_obj_path.indexOf('error') >= 0) {
+                    if ($(this).attr('src').indexOf('error') >= 0) {
                         if (video_obj_path.indexOf('?') >= 0) {
                             $(this).attr('src', video_obj_path + '&t=' + Math.random());
                         } else {
