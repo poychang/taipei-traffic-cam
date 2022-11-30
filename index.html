@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Taipei Traffic Cam</title>
     </head>
     <body>
         <div>
@@ -27,6 +27,19 @@
         ></script>
         <script>
             setInterval(function () {
+                recaptureVideo();
+            }, 8000);
+            setInterval(function () {
+                showTime();
+                errorReload();
+            }, 1000);
+
+            function showTime() {
+                const dateString = new Date().toLocaleString();
+                const formattedString = dateString.replace(', ', ' - ');
+                $('#time').text(formattedString);
+            }
+            function recaptureVideo() {
                 $('.video_obj').each(function () {
                     const video_obj_path = $(this).attr('data-src');
                     if (video_obj_path.indexOf('?') >= 0) {
@@ -35,14 +48,19 @@
                         $(this).attr('src', video_obj_path + '?t=' + Math.random());
                     }
                 });
-                console.log('checking...');
-            }, 8000);
-
-            setInterval(function () {
-                const dateString = new Date().toLocaleString();
-                const formattedString = dateString.replace(', ', ' - ');
-                $('#time').text(formattedString);
-            }, 1000);
+            }
+            function errorReload() {
+                $('.video_obj').each(function () {
+                    const video_obj_path = $(this).attr('data-src');
+                    if (video_obj_path.indexOf('error') >= 0) {
+                        if (video_obj_path.indexOf('?') >= 0) {
+                            $(this).attr('src', video_obj_path + '&t=' + Math.random());
+                        } else {
+                            $(this).attr('src', video_obj_path + '?t=' + Math.random());
+                        }
+                    }
+                });
+            }
         </script>
     </body>
 </html>
